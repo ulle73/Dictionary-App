@@ -1,23 +1,23 @@
 import React, { useState, useEffect, useContext } from 'react';
 import AppContext from '../context/AppContext copy';
 
-function SearchBar() {
+function SearchBar({onSearch}) {
 
     const {  } = useContext(AppContext);
 
 
  // Definiera en state-variabel 'inputValue' för att hålla användarens textinmatning
- const [inputValue, setInputvalue] = useState<string>("")
+ const [inputValue, setInputValue] = useState<string>("")
 
   // Skapa en funktion 'handleInputChange' för att uppdatera 'inputValue' varje gång användaren skriver något
   function handleInputChange(e : any){
-setInputvalue(e.target.value)
+setInputValue(e.target.value)
 console.log(inputValue)
   }
 
 
   // Skapa en funktion 'handleSearch' som anropas när användaren klickar på sökknappen eller trycker på enter
-function handleSearch(e : React.FormEvent<HTMLFormElement>){
+function searchFunction(e : React.FormEvent<HTMLFormElement>){
 e.preventDefault()
 console.log("TRYCK")
 
@@ -26,8 +26,10 @@ if(!inputValue){
     alert("Type a word")
 } else{
      //  - Annars, anropa 'onSearch' med 'inputValue' som parameter och nollställ 'inputValue'
-    console.log(inputValue)
-    //setInputValue("")
+    onSearch(inputValue)
+     console.log(inputValue)
+
+    
 }
 
 }
@@ -39,7 +41,7 @@ if(!inputValue){
 
     <div>
     <h1>SearchBar</h1>
-    <form onSubmit={handleSearch}>
+    <form onSubmit={searchFunction}>
         <input type="text" onChange={handleInputChange}/>
         <button type='submit'>Search word</button>
     </form>
