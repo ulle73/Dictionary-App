@@ -13,7 +13,7 @@ function Header({title}:HeaderProps) {
 
 
     return (
-      <header>
+      <header className="header-container text-center">
         <h1>{title}</h1>
       </header>
     );

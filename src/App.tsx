@@ -23,9 +23,10 @@ function App() {
       const response = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${input}`)
       console.log("SEARCHED WORD:", response.data)
       setWordData(response.data)
-      navigate('/result')
+      navigate(`${input}`)
 
     } catch (error) {
+
       console.log("Error", error)
     }
 
@@ -45,7 +46,10 @@ function App() {
 
           <Route path='/' element={
             <>
-              <FavList />
+              
+                 <FavList />
+            
+
               <SearchBar onSearch={searchFunction} />
               <ThemeSwitch />
               <WordResult wordData={wordData} />
@@ -53,6 +57,8 @@ function App() {
           }>
 
           </Route>
+
+          <Route path="/:word" element={<WordResult wordData={wordData} />} />
 
         </Routes>
 

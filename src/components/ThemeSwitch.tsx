@@ -8,10 +8,10 @@ function ThemeSwitch() {
   const { theme, toggleTheme } = useContext(AppContext);
 
   return (
-    <div>
-      <div>
+    <div className="themeSwitch-container">
+    
         <h1>ThemeSwitch</h1>
-      </div>
+     
       <div>
         <button onClick={() => toggleTheme()}>Toggle Theme</button>
       </div>
