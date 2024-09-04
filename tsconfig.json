@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "target": "es6",                          // Alternativt kan du använda "es2015" eller högre version
+      "module": "commonjs",
+      "jsx": "react-jsx",                       // Använd "react" om du använder en äldre version av React
+      "outDir": "./dist",
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "strict": true,
+      "skipLibCheck": true
+    },
+    "include": [
+      "src/**/*.tsx"                            // Inkludera alla TypeScript-filer i "src"-mappen
+    ]
+  }
+  
