@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
-import AppContext from '../context/AppContext';
+import AppContext from '../context/AppContext copy';
 
-function WordResult({wordData}) {
+function WordResult({wordData}:any)  {
 
    // Kontrollera om 'wordData' finns, annars visa ett meddelande om att ingen data är tillgänglig
 
   // Använd 'useContext' för att få tillgång till 'favorites', 'addFavorite', och 'removeFavorite'
-  const {  } = useContext(AppContext);
+  const { favorites , addFavorite, removeFavorite  }  = useContext(AppContext);
+  
   // Kontrollera om ordet är en favorit och sätt en variabel 'isFavorite' baserat på detta
+const isFavorite = favorites.includes(wordData?.word)
 
   return (
 

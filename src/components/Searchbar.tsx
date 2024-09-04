@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import AppContext from '../context/AppContext';
+import AppContext from '../context/AppContext copy';
 
 function SearchBar() {
 
@@ -7,17 +7,17 @@ function SearchBar() {
 
 
  // Definiera en state-variabel 'inputValue' för att hålla användarens textinmatning
- const [inputValue, setInputvalue] = useState("")
+ const [inputValue, setInputvalue] = useState<string>("")
 
   // Skapa en funktion 'handleInputChange' för att uppdatera 'inputValue' varje gång användaren skriver något
-  function handleInputChange(e){
+  function handleInputChange(e : any){
 setInputvalue(e.target.value)
 console.log(inputValue)
   }
 
 
   // Skapa en funktion 'handleSearch' som anropas när användaren klickar på sökknappen eller trycker på enter
-function handleSearch(e){
+function handleSearch(e : React.FormEvent<HTMLFormElement>){
 e.preventDefault()
 console.log("TRYCK")
 

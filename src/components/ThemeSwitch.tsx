@@ -1,19 +1,23 @@
 import React, { useState, useEffect, useContext } from 'react';
-import AppContext from '../context/AppContext';
+import AppContext from '../context/AppContext copy';
 
 function ThemeSwitch() {
 
 
   // Använd 'useContext' för att få tillgång till 'theme' och 'toggleTheme'
-  const {  } = useContext(AppContext);
+  const { theme, toggleTheme } = useContext(AppContext);
 
   return (
- 
-<div>
-    <h1>ThemeSwitch</h1>
-</div>
+    <div>
+      <div>
+        <h1>ThemeSwitch</h1>
+      </div>
+      <div>
+        <button onClick={() => toggleTheme()}>Toggle Theme</button>
+      </div>
+    </div>
 
-  // Returnera JSX med en knapp som visar det aktuella temat
+    // Returnera JSX med en knapp som visar det aktuella temat
     //  - Knappen ska växla mellan 'light' och 'dark' tema när den klickas
 
   )

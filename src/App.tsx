@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import './App.css'
-import { AppProvider } from './context/AppContext'
+import { AppProvider } from './context/AppContext copy'
 import Header from './components/Header'
 import SearchBar from './components/Searchbar'
 import FavList from './components/FavList'
@@ -19,7 +19,7 @@ function App() {
         <FavList />
         <SearchBar />
         <ThemeSwitch />
-        <WordResult />
+        <WordResult wordData={}/>
 
       </div>
     </AppProvider>
