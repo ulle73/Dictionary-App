@@ -9,7 +9,7 @@ function FavList() {
 
 
 // Använd 'useContext' för att få tillgång till 'favorites' och 'removeFavorite'
- const {  } = useContext(AppContext);
+ const { favorites, removeFavorite } = useContext(AppContext);
 
 
   return (
