@@ -1,46 +1,226 @@
-/* *{
-border: 1px solid red;
-} */
-
-body{
-  background-color: aqua;
+/* Grundinställningar */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: background-color 0.3s, color 0.3s; /* Smidiga övergångar för temaändringar */
+  overflow-x: hidden;
 }
 
-.text-center{
-  text-align: center;
-}
-
-#root{
-  background-color: blueviolet;
+/* Container för hela applikationen */
+.app-container {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  margin: auto;
+  height: 100vh;
 }
 
-
-
-
-
-
-
-
-
-
-
-.favList-container{
-  background-color: rgb(233, 78, 78);
-
+/* Header-stil */
+.header-container {
+  background-color: #282c34;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding-bottom: 80px;
 }
 
-.header-container{
-  background-color: rgb(122, 233, 78);
+/* Huvudcontent-stil */
+.main-content {
+  display: flex;
+  flex: 1;
+  margin-top: 20px;
+  padding: 20px;
+  gap: 20px;
 }
 
-.searchbar-container{
-  background-color: rgb(199, 221, 3);
+/* Sidebar för favoriter */
+.favList-container {
+  width: 300px;
+  background-color: #ffffff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  overflow-y: auto;
 }
 
-.themeSwitch-container{
-  background-color: rgb(4, 59, 59);
+.favList-container h2 {
+  margin-top: 0;
+  font-size: 1.5em;
+  color: inherit;
+}
+
+.favList-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.favList-container li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.remove-btn {
+  background-color: #dc3545;
+  padding: 6px 12px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.remove-btn:hover {
+  background-color: #c82333;
+}
+
+/* Innehåll till vänster */
+.content {
+  flex: 1;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Sökbar-stil */
+.searchbar-container {
+  margin-bottom: 20px;
+}
+
+.searchbar-container form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchbar-container input {
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 400px;
+  margin-right: 10px;
+  transition: border-color 0.3s;
+}
+
+.searchbar-container input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.searchbar-container button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.searchbar-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Temaväxlare-stil */
+.themeSwitch-container {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.themeSwitch-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.themeSwitch-container button:hover {
+  background-color: #218838;
+}
+
+/* Stil för resultatlista */
+.wordResult-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.wordResult-container h2 {
+  margin-top: 0;
+}
+
+.wordResult-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.wordResult-container li {
+  margin-bottom: 10px;
+}
+
+.wordResult-container audio {
+  margin-top: 10px;
+  width: 100%;
+}
+
+/* Buttons */
+.button {
+  padding: 10px 20px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+/* Knapp för att lägga till till favoriter */
+.add-to-favorites {
+  background-color: #28a745;
+}
+
+.add-to-favorites:hover {
+  background-color: #218838;
+}
+
+/* Knapp för att ta bort från favoriter */
+.remove-from-favorites {
+  background-color: #dc3545;
+}
+
+.remove-from-favorites:hover {
+  background-color: #c82333;
+}
+
+/* Ljust tema */
+body.light, .light .app-container, .light .header-container, .light .favList-container, .light .content, .light .wordResult-container {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+body.light .header-container, body.light .favList-container, body.light .content, body.light .wordResult-container {
+  background-color: #ffffff;
+  color: #333;
+}
+
+/* Mörkt tema */
+body.dark, .dark .app-container, .dark .header-container, .dark .favList-container, .dark .content, .dark .wordResult-container {
+  background-color: #333;
+  color: #f0f0f0;
+}
+
+body.dark .header-container, body.dark .favList-container, body.dark .content, body.dark .wordResult-container {
+  background-color: #444;
+  color: #f0f0f0;
 }

@@ -26,21 +26,25 @@ export const AppProvider = ({ children }: { children: JSX.Element }) => {
 
 
 
-    // -------- FAVORITORD --------
+     // -------- FAVORITORD --------
+  const [favorites, setFavorites] = useState<string[]>(() => {
+    // Hämta favoriter från sessionStorage vid inläsning
+    const savedFavorites = sessionStorage.getItem('favorites');
+    return savedFavorites ? JSON.parse(savedFavorites) : [];
+  });
 
-    // Skapa en state-variabel 'favorites' för att lagra en lista över favoritord
-    const [favorites, setFavorites] = useState<string[]>([])
+  // Funktion för att uppdatera sessionStorage när favoriter ändras
+  useEffect(() => {
+    sessionStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
 
-    // Skapa en funktion 'addFavorite' som lägger till ett ord i 'favorites'
-    function addFavorite(favorite: string) {
-        setFavorites([...favorites, favorite])
-    }
+  function addFavorite(favorite: string) {
+    setFavorites((prevFavorites) => [...prevFavorites, favorite]);
+  }
 
-    // Skapa en funktion 'removeFavorite' som tar bort ett ord från 'favorites'
-    function removeFavorite(favorite: string) {
-        setFavorites(favorites.filter((fav) => fav !== favorite))
-
-    }
+  function removeFavorite(favorite: string) {
+    setFavorites((prevFavorites) => prevFavorites.filter((fav) => fav !== favorite));
+  }
 
     // -------- TEMA --------
 
@@ -50,10 +54,14 @@ export const AppProvider = ({ children }: { children: JSX.Element }) => {
     // Skapa en funktion 'toggleTheme' som växlar mellan 'light' och 'dark' tema
     function toggleTheme() {
         setTheme(theme === 'light' ? 'dark' : 'light')
+        console.log("theme", theme)
     }
 
     // Använd 'useEffect' för att uppdatera dokumentets body-klass när temat ändras
-
+    useEffect(() => {
+        document.body.className = theme;
+        sessionStorage.setItem('theme', theme);
+      }, [theme]);
 
 
     // Props som skcikas till alla komponenter 

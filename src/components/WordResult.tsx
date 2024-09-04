@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 function WordResult({wordData}:any)  {
 
   const { word } = useParams()
-   // Kontrollera om 'wordData' finns, annars visa ett meddelande om att ingen data är tillgänglig
+  
 
   // Använd 'useContext' för att få tillgång till 'favorites', 'addFavorite', och 'removeFavorite'
   const { favorites , addFavorite, removeFavorite  }  = useContext(AppContext);
@@ -14,7 +14,7 @@ function WordResult({wordData}:any)  {
   const isFavorite = favorites.includes(wordData?.[0]?.word);
 
   if (!wordData || wordData[0]?.word !== word) {
-    return <div>No data available for "{word}"</div>;
+    return <div></div>;
   }
 
   const handleFavoriteClick = () => {
@@ -36,8 +36,11 @@ function WordResult({wordData}:any)  {
       <h2>{wordData[0].word}</h2>
 
       {/* En knapp som lägger till eller tar bort ordet från favoriter beroende på 'isFavorite' */}
-      <button onClick={handleFavoriteClick}>
-        {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
+      <button 
+        className={`button ${isFavorite ? 'remove-from-favorites' : 'add-to-favorites'}`} 
+        onClick={handleFavoriteClick}
+      >
+        {isFavorite ? "Remove word from Favorites" : "Add word to Favorites"}
       </button>
 
 
@@ -54,7 +57,6 @@ function WordResult({wordData}:any)  {
       {wordData[0].phonetics[0]?.audio && (
         <audio controls>
           <source src={wordData[0].phonetics[0].audio} type="audio/mpeg" />
-          Your browser does not support the audio element.
         </audio>
       )}
     </div>

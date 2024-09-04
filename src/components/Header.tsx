@@ -1,4 +1,5 @@
 import React from 'react';
+import ThemeSwitch from './ThemeSwitch';
 
 
 type HeaderProps = {
@@ -14,7 +15,9 @@ function Header({title}:HeaderProps) {
 
     return (
       <header className="header-container text-center">
+          <ThemeSwitch />
         <h1>{title}</h1>
+      
       </header>
     );
   }

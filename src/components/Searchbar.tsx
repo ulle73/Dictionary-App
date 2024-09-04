@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import AppContext from '../context/AppContext copy';
 
-function SearchBar({ onSearch }) {
+interface SearchBarProps {
+  onSearch: (input: string) => void;
+}
+
+function SearchBar({ onSearch } : SearchBarProps) {
 
   const { } = useContext(AppContext);
 
@@ -40,7 +44,7 @@ function SearchBar({ onSearch }) {
   return (
 
     <div className="searchbar-container">
-      <h1>SearchBar</h1>
+    
       <form onSubmit={searchFunction}>
         <input type="text" onChange={handleInputChange} />
         <button type='submit'>Search word</button>

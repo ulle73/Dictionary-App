@@ -14,20 +14,18 @@ function FavList() {
 
   return (
 
-<div className="favList-container">
-    <h1>FavList</h1>
+<div className="favList-container text-center">
+    <h2>Favorite words</h2>
     <ul>
       {favorites.map((word: string, index: number) => (
         <li key={index}>
-          {word} <button onClick={() => removeFavorite(word)}>Remove</button>
+          {word} <button className="remove-btn" onClick={() => removeFavorite(word)}>Remove</button>
         </li>
       ))}
     </ul>
 </div>
     
-   // Returnera JSX som visar en lista över favoritord
-    //  - Om 'favorites' har ord, visa dem i en <ul> med en borttagningsknapp för varje ord
-    //  - Om inga favoriter finns, visa ett meddelande
+   
  
 )
 }

@@ -14,7 +14,7 @@ function App() {
 
   const navigate = useNavigate();
 
-  const [wordData, setWordData] = useState<any>(null)
+  const [wordData, setWordData] = useState<any>(null!)
 
 
   async function searchFunction(input: string) {
@@ -38,30 +38,23 @@ function App() {
 
   return (
     <AppProvider>
-      <div>
-
+      <div className="app-container">
         <Header title={"Dictionary App"} />
-
-        <Routes>
-
-          <Route path='/' element={
-            <>
-              
-                 <FavList />
+        
+        <div className="main-content">
+         
+          <div className="content">
+            <SearchBar onSearch={searchFunction} />
             
-
-              <SearchBar onSearch={searchFunction} />
-              <ThemeSwitch />
-              <WordResult wordData={wordData} />
-            </>
-          }>
-
-          </Route>
-
-          <Route path="/:word" element={<WordResult wordData={wordData} />} />
-
-        </Routes>
-
+            <Routes>
+              <Route path='/' element={<WordResult wordData={wordData} />} />
+              <Route path='/:word' element={<WordResult wordData={wordData} />} />
+            </Routes>
+          </div>
+        
+            <FavList />
+         
+        </div>
       </div>
     </AppProvider>
   )
