@@ -1,18 +1,29 @@
 import React, { useState, useEffect, useContext } from 'react';
 import AppContext from '../context/AppContext copy';
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 
-function WordResult({wordData}:any)  {
-
-  const { word } = useParams()
-  
+function WordResult({ wordData }: any) {
+  const { word } = useParams();
 
   // Använd 'useContext' för att få tillgång till 'favorites', 'addFavorite', och 'removeFavorite'
-  const { favorites , addFavorite, removeFavorite  }  = useContext(AppContext);
-  
+  const { favorites, addFavorite, removeFavorite } = useContext(AppContext);
+
   // Kontrollera om ordet är en favorit och sätt en variabel 'isFavorite' baserat på detta
   const isFavorite = favorites.includes(wordData?.[0]?.word);
 
+  // Håll den aktuella ljudfilen i state
+  const [audioSrc, setAudioSrc] = useState<string | null>(null);
+
+  // Använd useEffect för att uppdatera ljudfilen varje gång ett nytt ord laddas
+  useEffect(() => {
+    if (wordData && wordData[0]?.phonetics[0]?.audio) {
+      setAudioSrc(wordData[0].phonetics[0].audio);
+    } else {
+      setAudioSrc(null); 
+    }
+  }, [wordData]);
+
+  // Om det nya ordet inte matchar det nuvarande, returnera en tom div
   if (!wordData || wordData[0]?.word !== word) {
     return <div></div>;
   }
@@ -25,26 +36,20 @@ function WordResult({wordData}:any)  {
     }
   };
 
-
-
-
-
   return (
     <div className="wordResult-container">
-
-        {/* Ordets huvudnamn i en  */}
+      {/* Ordets huvudnamn */}
       <h2>{wordData[0].word}</h2>
 
-      {/* En knapp som lägger till eller tar bort ordet från favoriter beroende på 'isFavorite' */}
-      <button 
-        className={`button ${isFavorite ? 'remove-from-favorites' : 'add-to-favorites'}`} 
+      {/* Knapp för att lägga till eller ta bort ordet från favoriter */}
+      <button
+        className={`button ${isFavorite ? 'remove-from-favorites' : 'add-to-favorites'}`}
         onClick={handleFavoriteClick}
       >
         {isFavorite ? "Remove word from Favorites" : "Add word to Favorites"}
       </button>
 
-
-      {/* En lista med definitioner i en <ul> */}
+      {/* Lista med definitioner */}
       <ul>
         {wordData[0].meanings.map((meaning: any, index: number) => (
           <li key={index}>
@@ -53,10 +58,10 @@ function WordResult({wordData}:any)  {
         ))}
       </ul>
 
-      {/* En ljudspelare <audio> om ljudfilen finns */}
-      {wordData[0].phonetics[0]?.audio && (
-        <audio controls>
-          <source src={wordData[0].phonetics[0].audio} type="audio/mpeg" />
+      {/* Ljudspelare*/}
+      {audioSrc && (
+        <audio key={audioSrc} controls>
+          <source src={audioSrc} type="audio/mpeg" />
         </audio>
       )}
     </div>
