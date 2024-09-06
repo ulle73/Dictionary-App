@@ -20,18 +20,25 @@ function App() {
   async function searchFunction(input: string) {
 
     try {
-      const response = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${input}`)
-      console.log("SEARCHED WORD:", response.data)
-      setWordData(response.data)
-      navigate(`${input}`)
+      // Skicka en begäran till dictionary API
+      const response = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${input}`);
+      console.log("SEARCHED WORD:", response.data);
+      
+      // Om data returneras, sätt orddata och navigera till resultatsidan
+      setWordData(response.data);
+      navigate(`${input}`);
 
-    } catch (error) {
-
-      console.log("Error", error)
+    } catch (error: any) {
+      // Kontrollera om det är ett 404-fel (ordet hittades inte)
+      if (error.response && error.response.status === 404) {
+        alert(`The word "${input}" was not found. Please try again.`);
+      } else {
+        // Annat fel
+        console.log("Error", error);
+        alert("An error occurred. Please try again.");
+      }
     }
-
-  }
-
+}
 
 
 
