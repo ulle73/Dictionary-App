@@ -15,7 +15,7 @@ function SearchBar({ onSearch } : SearchBarProps) {
 
   // Skapa en funktion 'handleInputChange' för att uppdatera 'inputValue' varje gång användaren skriver något
   function handleInputChange(e: any) {
-    setInputValue(e.target.value)
+    setInputValue(e.target.value.toLowerCase())
     console.log(inputValue)
   }
 
