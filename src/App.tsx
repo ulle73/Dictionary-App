@@ -37,6 +37,7 @@ function App() {
 
 
   return (
+   
     <AppProvider>
       <div className="app-container">
         <Header title={"Dictionary App"} />
@@ -57,6 +58,7 @@ function App() {
         </div>
       </div>
     </AppProvider>
+  
   )
 }
 

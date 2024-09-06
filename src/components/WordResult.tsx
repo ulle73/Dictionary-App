@@ -11,7 +11,7 @@ function WordResult({ wordData }: any) {
   // Kontrollera om ordet är en favorit och sätt en variabel 'isFavorite' baserat på detta
   const isFavorite = favorites.includes(wordData?.[0]?.word);
 
-  // Håll den aktuella ljudfilen i state
+  // Sätt ljudfilen i state
   const [audioSrc, setAudioSrc] = useState<string | null>(null);
 
   // Använd useEffect för att uppdatera ljudfilen varje gång ett nytt ord laddas
