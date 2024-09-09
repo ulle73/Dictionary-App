@@ -46,7 +46,7 @@ function SearchBar({ onSearch } : SearchBarProps) {
     <div className="searchbar-container">
     
       <form onSubmit={searchFunction}>
-        <input type="text" onChange={handleInputChange} />
+        <input placeholder='Search for a word...' type="text" onChange={handleInputChange} />
         <button type='submit'>Search word</button>
       </form>
     </div>

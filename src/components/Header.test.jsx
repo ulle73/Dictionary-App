@@ -10,7 +10,8 @@ render(
 <AppContext.Provider value={
         {theme:"light"}}>
       (<Header title={"Dictionary App"}/>)
-    </AppContext.Provider>)
+    </AppContext.Provider>
+    )
     
 
     expect(screen.getByText("Dictionary App")).toBeInTheDocument()
