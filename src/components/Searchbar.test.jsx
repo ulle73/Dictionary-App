@@ -1,27 +1,47 @@
+// SearchBar.test.tsx
 import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
 import Searchbar from '../components/Searchbar';
 import AppContext from '../context/AppContext copy';
 import userEvent from '@testing-library/user-event';
 
-test('test my searchbar function', async () => {
-  const searchFunction = vi.fn(); 
 
-  render(
-    <AppContext.Provider value={{ theme: 'light' }}>
-      <Searchbar onSearch={searchFunction} />
-    </AppContext.Provider>
-  );
+const user = userEvent.setup()
 
-  const input = screen.getByPlaceholderText('Search for a word...');
-  expect(input).toBeInTheDocument();
+describe('SearchBar', () => {
+  it('should call onSearch with input value when the form is submitted', async () => {
+   
+    const onSearchMock = vi.fn();
 
-  const user = userEvent.setup();
-  await user.type(input, 'hello');
 
-  expect(input).toHaveValue('hello');
+    render(
+      <AppContext.Provider value={{ theme: 'light' }}>
+        <Searchbar onSearch={onSearchMock} />
+      </AppContext.Provider>
+    );
 
-  const button = screen.getByRole('button');
-  await user.click(button);
+ 
+    await user.type(screen.getByPlaceholderText('Search for a word...'), 'example');
 
-  expect(searchFunction).toHaveBeenCalledWith('hello');
+    // Simulera form-submit
+    await user.click(screen.getByRole('button', { name: /Search word/i }));
+
+    expect(onSearchMock).toHaveBeenCalledWith('example');
+  });
+
+  it('should alert when input is empty and form is submitted', async () => {
+    global.alert = vi.fn(); // Mocka alert
+    const onSearchMock = vi.fn();
+    render(
+      <AppContext.Provider value={{ theme: 'light' }}>
+        <Searchbar onSearch={onSearchMock} />
+      </AppContext.Provider>
+    );
+
+    
+    // Simulera form-submit med tomt input
+    await user.click(screen.getByRole('button', { name: /Search word/i }));
+
+    expect(global.alert).toHaveBeenCalledWith('Type a word');
+  });
 });
