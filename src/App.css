@@ -1,8 +1,10 @@
 /* Grundinställningar */
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  transition: background-color 0.3s, color 0.3s; /* Smidiga övergångar för temaändringar */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition:
+    background-color 0.3s,
+    color 0.3s; /* Smidiga övergångar för temaändringar */
   overflow-x: hidden;
 }
 
@@ -204,23 +206,39 @@ body {
 }
 
 /* Ljust tema */
-body.light, .light .app-container, .light .header-container, .light .favList-container, .light .content, .light .wordResult-container {
+body.light,
+.light .app-container,
+.light .header-container,
+.light .favList-container,
+.light .content,
+.light .wordResult-container {
   background-color: #f0f0f0;
   color: #333;
 }
 
-body.light .header-container, body.light .favList-container, body.light .content, body.light .wordResult-container {
+body.light .header-container,
+body.light .favList-container,
+body.light .content,
+body.light .wordResult-container {
   background-color: #ffffff;
   color: #333;
 }
 
 /* Mörkt tema */
-body.dark, .dark .app-container, .dark .header-container, .dark .favList-container, .dark .content, .dark .wordResult-container {
+body.dark,
+.dark .app-container,
+.dark .header-container,
+.dark .favList-container,
+.dark .content,
+.dark .wordResult-container {
   background-color: #333;
   color: #f0f0f0;
 }
 
-body.dark .header-container, body.dark .favList-container, body.dark .content, body.dark .wordResult-container {
+body.dark .header-container,
+body.dark .favList-container,
+body.dark .content,
+body.dark .wordResult-container {
   background-color: #444;
   color: #f0f0f0;
 }

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-import AppContext from '../context/AppContext copy';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from "react";
+import AppContext from "../context/AppContext copy";
+import { useParams } from "react-router-dom";
 
 function WordResult({ wordData }: any) {
   const { word } = useParams();
@@ -19,7 +19,7 @@ function WordResult({ wordData }: any) {
     if (wordData && wordData[0]?.phonetics[0]?.audio) {
       setAudioSrc(wordData[0].phonetics[0].audio);
     } else {
-      setAudioSrc(null); 
+      setAudioSrc(null);
     }
   }, [wordData]);
 
@@ -43,7 +43,7 @@ function WordResult({ wordData }: any) {
 
       {/* Knapp för att lägga till eller ta bort ordet från favoriter */}
       <button
-        className={`button ${isFavorite ? 'remove-from-favorites' : 'add-to-favorites'}`}
+        className={`button ${isFavorite ? "remove-from-favorites" : "add-to-favorites"}`}
         onClick={handleFavoriteClick}
       >
         {isFavorite ? "Remove word from Favorites" : "Add word to Favorites"}
@@ -53,14 +53,15 @@ function WordResult({ wordData }: any) {
       <ul>
         {wordData[0].meanings.map((meaning: any, index: number) => (
           <li key={index}>
-            <strong>{meaning.partOfSpeech}:</strong> {meaning.definitions[0].definition}
+            <strong>{meaning.partOfSpeech}:</strong>{" "}
+            {meaning.definitions[0].definition}
           </li>
         ))}
       </ul>
 
       {/* Ljudspelare*/}
       {audioSrc && (
-        <audio key={audioSrc} controls>
+        <audio data-testid="audio" key={audioSrc} controls>
           <source src={audioSrc} type="audio/mpeg" />
         </audio>
       )}

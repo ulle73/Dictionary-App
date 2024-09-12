@@ -1,32 +1,34 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import Header from '../components/Header';
-import AppContext from '../context/AppContext copy';
-import userEvent from '@testing-library/user-event';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import Header from "../components/Header";
+import AppContext from "../context/AppContext copy";
+import userEvent from "@testing-library/user-event";
 
-it('Test my themeswitch', async () => {
-
+it("Test my themeswitch", async () => {
   const mockToggleTheme = vi.fn(() => {
-    const currentTheme = sessionStorage.getItem('theme') || 'light';
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    sessionStorage.setItem('theme', newTheme);
+    const currentTheme = sessionStorage.getItem("theme") || "light";
+    const newTheme = currentTheme === "light" ? "dark" : "light";
+    sessionStorage.setItem("theme", newTheme);
   });
 
-
   render(
-    <AppContext.Provider value={{ theme: 'light', toggleTheme: mockToggleTheme }}>
+    <AppContext.Provider
+      value={{ theme: "light", toggleTheme: mockToggleTheme }}
+    >
       <Header title="Dictionary App" />
-    </AppContext.Provider>
+    </AppContext.Provider>,
   );
 
-
-  const toggleBtn = screen.getByText('Toggle Theme');
+  const toggleBtn = screen.getByText("Toggle Theme");
   expect(toggleBtn).toBeInTheDocument();
-
 
   const user = userEvent.setup();
   await user.click(toggleBtn);
 
+  //docuement.body har klassen dark
+  expect(sessionStorage.getItem("theme")).toBe("dark");
 
-  expect(sessionStorage.getItem('theme')).toBe('dark');
+  await user.click(toggleBtn);
+
+  expect(sessionStorage.getItem("theme")).toBe("light");
 });

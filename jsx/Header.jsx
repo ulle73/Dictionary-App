@@ -1,11 +1,6 @@
-import React from 'react';
+import React from "react";
 
-function Header({title}) {
-
-
-
-
-
+function Header({ title }) {
   return (
     <header>
       <h1>{title}</h1>
