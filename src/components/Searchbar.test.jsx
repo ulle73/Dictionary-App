@@ -23,23 +23,26 @@ describe('SearchBar', () => {
  
     await user.type(screen.getByPlaceholderText('Search for a word...'), 'example');
 
-    // Simulera form-submit
+ 
     await user.click(screen.getByRole('button', { name: /Search word/i }));
 
     expect(onSearchMock).toHaveBeenCalledWith('example');
   });
 
+
+
+
   it('should alert when input is empty and form is submitted', async () => {
     global.alert = vi.fn(); // Mocka alert
     const onSearchMock = vi.fn();
     render(
-      <AppContext.Provider value={{ theme: 'light' }}>
+      <AppContext.Provider value={{ theme: 'light' }}>  
         <Searchbar onSearch={onSearchMock} />
       </AppContext.Provider>
     );
 
     
-    // Simulera form-submit med tomt input
+    //tomt input
     await user.click(screen.getByRole('button', { name: /Search word/i }));
 
     expect(global.alert).toHaveBeenCalledWith('Type a word');

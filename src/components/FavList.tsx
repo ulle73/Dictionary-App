@@ -16,9 +16,9 @@ function FavList() {
 
 <div className="favList-container text-center">
     <h2>Favorite words</h2>
-    <ul>
+    <ul aria-label="Favorite words">
       {favorites.map((word: string, index: number) => (
-        <li key={index}>
+        <li className="list" key={index}>
           {word} <button className="remove-btn" onClick={() => removeFavorite(word)}>Remove</button>
         </li>
       ))}
