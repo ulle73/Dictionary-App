@@ -1,4 +1,4 @@
-import { render, screen, cleanup, within } from '@testing-library/react'
+import { render, screen, cleanup, within, waitFor } from '@testing-library/react'
 import App from '../App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { describe } from 'vitest';
@@ -71,6 +71,21 @@ describe('App', () => {
     await user.click(screen.getByRole('button', { name: 'Remove word from Favorites' }))
 
     expect(favList).not.toHaveTextContent("test")
+
+  })
+
+
+  it('audiofile has a source', async () => {
+    
+
+    await user.type(screen.getByPlaceholderText('Search for a word...'), 'ball');
+    await user.click(screen.getByRole('button', { name: /Search word/i }));
+
+    await waitFor(()=>{
+      const audio = document.querySelector("audio")
+      expect(audio).toBeInTheDocument();
+    })
+   
 
   })
 
