@@ -1,44 +1,60 @@
 // SearchBar.test.tsx
-import { render, screen } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
-import Searchbar from "../components/Searchbar";
-import AppContext from "../context/AppContext copy";
-import userEvent from "@testing-library/user-event";
+import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import SearchBar from '../components/Searchbar'; 
+import AppContext from '../context/AppContext copy';
+import userEvent from '@testing-library/user-event';
+
+// Mocka alert globalt
+global.alert = vi.fn();
 
 const user = userEvent.setup();
 
-describe("SearchBar", () => {
-  it("should call onSearch with input value when the form is submitted", async () => {
-    const onSearchMock = vi.fn();
+describe('SearchBar', () => {
+  it('should call onSearch with input value when the form is submitted', async () => {
+    const onSearchMock = vi.fn().mockResolvedValue(true); // Mocka med en lyckad sökning
 
     render(
-      <AppContext.Provider value={{ theme: "light" }}>
-        <Searchbar onSearch={onSearchMock} />
-      </AppContext.Provider>,
+      <AppContext.Provider value={{ theme: 'light' }}>
+        <SearchBar onSearch={onSearchMock} />
+      </AppContext.Provider>
     );
 
-    await user.type(
-      screen.getByPlaceholderText("Search for a word..."),
-      "example",
-    );
+    //Ett ord och skicka in formuläret
+    await user.type(screen.getByPlaceholderText('Search for a word...'), 'example');
+    await user.click(screen.getByRole('button', { name: /Search word/i }));
 
-    await user.click(screen.getByRole("button", { name: /Search word/i }));
-
-    expect(onSearchMock).toHaveBeenCalledWith("example");
+    expect(onSearchMock).toHaveBeenCalledWith('example');
   });
 
-  it("should alert when input is empty and form is submitted", async () => {
-    global.alert = vi.fn(); // Mocka alert
-    const onSearchMock = vi.fn();
+  it('should show error message when input is empty.', async () => {
+    const onSearchMock = vi.fn(); 
+
     render(
-      <AppContext.Provider value={{ theme: "light" }}>
-        <Searchbar onSearch={onSearchMock} />
-      </AppContext.Provider>,
+      <AppContext.Provider value={{ theme: 'light' }}>
+        <SearchBar onSearch={onSearchMock} />
+      </AppContext.Provider>
     );
 
-    //tomt input
-    await user.click(screen.getByRole("button", { name: /Search word/i }));
+    // Tomt input
+    await user.click(screen.getByRole('button', { name: /Search word/i }));
 
-    expect(global.alert).toHaveBeenCalledWith("Type a word");
+    expect(screen.getByText('Please type a word')).toBeInTheDocument();
+  });
+
+  it('should show error message when word is not found.', async () => {
+    const onSearchMock = vi.fn().mockResolvedValue(false); // Mocka med ett misslyckat sökresultat
+
+    render(
+      <AppContext.Provider value={{ theme: 'light' }}>
+        <SearchBar onSearch={onSearchMock} />
+      </AppContext.Provider>
+    );
+
+    // Typa ett ord som inte finns och skicka in formuläret
+    await user.type(screen.getByPlaceholderText('Search for a word...'), 'ettOrdPåSvenska');
+    await user.click(screen.getByRole('button', { name: /Search word/i }));
+
+    expect(screen.getByText('Word not found. Please try another.')).toBeInTheDocument();
   });
 });

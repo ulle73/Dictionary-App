@@ -1,47 +1,53 @@
-import React, { useState, useEffect, useContext } from "react";
-import AppContext from "../context/AppContext copy";
+import React, { useState, useContext } from 'react';
+import AppContext from '../context/AppContext copy';
 
 interface SearchBarProps {
-  onSearch: (input: string) => void;
+  onSearch: (input: string) => Promise<boolean>; // Ändrat för att använda en Promise som returnerar om ordet finns
 }
 
 function SearchBar({ onSearch }: SearchBarProps) {
   const {} = useContext(AppContext);
 
-  // Definiera en state-variabel 'inputValue' för att hålla användarens textinmatning
   const [inputValue, setInputValue] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  // Skapa en funktion 'handleInputChange' för att uppdatera 'inputValue' varje gång användaren skriver något
-  function handleInputChange(e: any) {
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value.toLowerCase());
-    console.log(inputValue);
+    setErrorMessage(""); // Rensa felmeddelandet när användaren börjar skriva
   }
 
-  // Skapa en funktion 'handleSearch' som anropas när användaren klickar på sökknappen eller trycker på enter
-  function searchFunction(e: React.FormEvent<HTMLFormElement>) {
+  async function searchFunction(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log("TRYCK");
 
-    //  - Om 'inputValue' är tomt, visa ett felmeddelande
     if (!inputValue) {
-      alert("Type a word");
+      setErrorMessage("Please type a word");
     } else {
-      //  - Annars, anropa 'onSearch' med 'inputValue' som parameter
-      onSearch(inputValue);
-      console.log(inputValue);
+      // Anropa onSearch och få tillbaka om ordet hittades eller inte
+      const wordFound = await onSearch(inputValue);
+      if (!wordFound) {
+        setErrorMessage("Word not found. Please try another.");
+      } else {
+        setErrorMessage(""); // Rensa felmeddelandet efter en lyckad sökning
+      }
     }
   }
 
   return (
     <div className="searchbar-container">
       <form onSubmit={searchFunction}>
-        <input
-          placeholder="Search for a word..."
-          type="text"
-          onChange={handleInputChange}
+        <input 
+          placeholder="Search for a word..." 
+          type="text" 
+          onChange={handleInputChange} 
+          value={inputValue} 
         />
         <button type="submit">Search word</button>
       </form>
+
+      {/* Visa felmeddelandet om det finns något */}
+      {errorMessage && (
+        <p style={{ color: 'red', marginTop: '10px' }}>{errorMessage}</p>
+      )}
     </div>
   );
 }

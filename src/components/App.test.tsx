@@ -1,106 +1,138 @@
-import { render, screen, cleanup, within, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  cleanup,
+  within,
+  waitFor,
+} from "@testing-library/react";
 import App from "../App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { describe, it, beforeEach, afterEach, vi, expect } from "vitest";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
 const user = userEvent.setup();
 
-// Mocka axios 
+// Mocka axios
 vi.mock("axios");
 
 describe("App", () => {
   beforeEach(() => {
     localStorage.clear();
-    // Mocka API-svaret 
+    // Mocka API-svaret
     (axios.get as any).mockResolvedValue({
       data: [
         {
-          "word": "hello",
-          "phonetics": [
+          word: "hello",
+          phonetics: [
             {
-              "audio": "https://api.dictionaryapi.dev/media/pronunciations/en/hello-au.mp3",
-              "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=75797336",
-              "license": {
-                "name": "BY-SA 4.0",
-                "url": "https://creativecommons.org/licenses/by-sa/4.0"
-              }
+              audio: "https://api.dictionaryapi.dev/media/pronunciations/en/hello-au.mp3",
+              sourceUrl: "https://commons.wikimedia.org/w/index.php?curid=75797336",
+              license: {
+                name: "BY-SA 4.0",
+                url: "https://creativecommons.org/licenses/by-sa/4.0",
+              },
             },
             {
-              "text": "/həˈləʊ/",
-              "audio": "https://api.dictionaryapi.dev/media/pronunciations/en/hello-uk.mp3",
-              "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=9021983",
-              "license": {
-                "name": "BY 3.0 US",
-                "url": "https://creativecommons.org/licenses/by/3.0/us"
-              }
+              text: "/həˈləʊ/",
+              audio: "https://api.dictionaryapi.dev/media/pronunciations/en/hello-uk.mp3",
+              sourceUrl: "https://commons.wikimedia.org/w/index.php?curid=9021983",
+              license: {
+                name: "BY 3.0 US",
+                url: "https://creativecommons.org/licenses/by/3.0/us",
+              },
             },
             {
-              "text": "/həˈloʊ/",
-              "audio": ""
-            }
+              text: "/həˈloʊ/",
+              audio: "",
+            },
           ],
-          "meanings": [
+          meanings: [
             {
-              "partOfSpeech": "noun",
-              "definitions": [
+              partOfSpeech: "noun",
+              definitions: [
                 {
-                  "definition": "\"Hello!\" or an equivalent greeting.",
-                  "synonyms": [],
-                  "antonyms": []
-                }
+                  definition: '"Hello!" or an equivalent greeting.',
+                  synonyms: [],
+                  antonyms: [],
+                },
               ],
-              "synonyms": [
-                "greeting"
-              ],
-              "antonyms": []
+              synonyms: ["greeting"],
+              antonyms: [],
             },
             {
-              "partOfSpeech": "verb",
-              "definitions": [
+              partOfSpeech: "verb",
+              definitions: [
                 {
-                  "definition": "To greet with \"hello\".",
-                  "synonyms": [],
-                  "antonyms": []
-                }
+                  definition: 'To greet with "hello".',
+                  synonyms: [],
+                  antonyms: [],
+                },
               ],
-              "synonyms": [],
-              "antonyms": []
+              synonyms: [],
+              antonyms: [],
             },
             {
-              "partOfSpeech": "interjection",
-              "definitions": [
+              partOfSpeech: "interjection",
+              definitions: [
                 {
-                  "definition": "A greeting (salutation) said when meeting someone or acknowledging someone’s arrival or presence.",
-                  "synonyms": [],
-                  "antonyms": [],
-                  "example": "Hello, everyone."
+                  definition: "A greeting (salutation) said when meeting someone or acknowledging someone’s arrival or presence.",
+                  synonyms: [],
+                  antonyms: [],
+                  example: "Hello, everyone.",
                 },
                 {
-                  "definition": "A greeting used when answering the telephone.",
-                  "synonyms": [],
-                  "antonyms": [],
-                  "example": "Hello? How may I help you?"
-                }
+                  definition: "A greeting used when answering the telephone.",
+                  synonyms: [],
+                  antonyms: [],
+                  example: "Hello? How may I help you?",
+                },
               ],
-              "synonyms": [],
-              "antonyms": [
-                "bye",
-                "goodbye"
-              ]
-            }
+              synonyms: [],
+              antonyms: ["bye", "goodbye"],
+            },
           ],
-          "license": {
-            "name": "CC BY-SA 3.0",
-            "url": "https://creativecommons.org/licenses/by-sa/3.0"
+          license: {
+            name: "CC BY-SA 3.0",
+            url: "https://creativecommons.org/licenses/by-sa/3.0",
           },
-          "sourceUrls": [
-            "https://en.wiktionary.org/wiki/hello"
-          ]
-        }
-      ]
+          sourceUrls: ["https://en.wiktionary.org/wiki/hello"],
+        },
+        {
+          word: "test",
+          phonetics: [
+            {
+              text: "/tɛst/",
+              audio: "https://api.dictionaryapi.dev/media/pronunciations/en/test.mp3",
+              sourceUrl: "https://commons.wikimedia.org/w/index.php?curid=12345678",
+              license: {
+                name: "BY-SA 4.0",
+                url: "https://creativecommons.org/licenses/by-sa/4.0",
+              },
+            },
+          ],
+          meanings: [
+            {
+              partOfSpeech: "noun",
+              definitions: [
+                {
+                  definition: "A procedure intended to establish the quality, performance, or reliability of something.",
+                  synonyms: ["exam", "assessment"],
+                  antonyms: [],
+                },
+              ],
+              synonyms: ["exam", "assessment"],
+              antonyms: [],
+            },
+          ],
+          license: {
+            name: "CC BY-SA 3.0",
+            url: "https://creativecommons.org/licenses/by-sa/3.0",
+          },
+          sourceUrls: ["https://en.wiktionary.org/wiki/test"],
+        },
+      ],
     });
 
     render(
@@ -113,7 +145,7 @@ describe("App", () => {
   afterEach(() => {
     localStorage.clear();
     cleanup();
-    vi.clearAllMocks(); 
+    vi.clearAllMocks();
   });
 
   it("should render all main components", () => {
@@ -125,62 +157,113 @@ describe("App", () => {
   });
 
   it("should remove word from favorites", async () => {
-    await user.type(screen.getByPlaceholderText("Search for a word..."), "hello");
+    await user.type(
+      screen.getByPlaceholderText("Search for a word..."),
+      "hello"
+    );
     await user.click(screen.getByRole("button", { name: /Search word/i }));
 
-   
-    await user.click(await screen.findByRole("button", { name: "Add word to Favorites" }));
+    await user.click(
+      await screen.findByRole("button", { name: "Add word to Favorites" })
+    );
 
     const favList = screen.getByLabelText("Favorite words");
     expect(within(favList).getByText("hello")).toBeInTheDocument();
 
-   
-    await user.click(screen.getByRole("button", { name: "Remove word from Favorites" }));
+    await user.click(
+      screen.getByRole("button", { name: "Remove word from Favorites" })
+    );
 
-    
     await waitFor(() => {
       expect(favList).not.toHaveTextContent("hello");
     });
   });
 
   it("should add words to favorites", async () => {
-    await user.type(screen.getByPlaceholderText("Search for a word..."), "hello");
+    await user.type(
+      screen.getByPlaceholderText("Search for a word..."),
+      "hello"
+    );
     await user.click(screen.getByRole("button", { name: /Search word/i }));
 
-   
     const wordHeading = screen.getByRole("heading", { name: /hello/i });
     expect(wordHeading).toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: "Add word to Favorites" }));
+    await user.click(
+      screen.getByRole("button", { name: "Add word to Favorites" })
+    );
 
     const favList = screen.getByLabelText("Favorite words");
     expect(within(favList).getByText("hello")).toBeInTheDocument();
   });
 
-
+  it.todo("click on word in favorites to see word data", async () => {
+    const input = screen.getByPlaceholderText("Search for a word...");
+    await user.type(input, "hello");
+    await user.click(screen.getByRole("button", { name: /Search word/i }));
+    await user.click(screen.getByRole("button", { name: "Add word to Favorites" }));
+    await user.clear(input);
+  
+   
+    await user.type(input, "test");
+    await user.click(screen.getByRole("button", { name: /Search word/i }));
+  
+    // Debugging
+    screen.debug(); // Kontrollera DOM-innehåll innan du letar efter texten "test"
+  
+    // Kontrollera om texten "test" är korrekt renderad
+    const testWord = await screen.findByText("test");
+    expect(testWord).toBeInTheDocument();
+  
+    const favList = screen.getByLabelText("Favorite words");
+    expect(within(favList).getByText("hello")).toBeInTheDocument();
+  
+    await user.click(within(favList).getByText("hello"));
+  
+    const wordHeading = await screen.findByRole("heading", { name: /hello/i });
+    expect(wordHeading).toBeInTheDocument();
+  
+    expect(screen.getByText('"Hello!" or an equivalent greeting.')).toBeInTheDocument();
+  });
+  
+  
 
   it("should render result from searchbar", async () => {
-    await user.type(screen.getByPlaceholderText("Search for a word..."), "hello");
+    await user.type(
+      screen.getByPlaceholderText("Search for a word..."),
+      "hello"
+    );
     await user.click(screen.getByRole("button", { name: /Search word/i }));
 
-    await waitFor(() => {
-      const wordHeading = screen.getByRole("heading", { name: /hello/i });
-      expect(wordHeading).toBeInTheDocument();
-      expect(screen.getByText("\"Hello!\" or an equivalent greeting.")).toBeInTheDocument();
-      expect(screen.getByText("To greet with \"hello\".")).toBeInTheDocument();
-      expect(screen.getByText("A greeting (salutation) said when meeting someone or acknowledging someone’s arrival or presence.")).toBeInTheDocument();
-    });
+    const wordHeading = await screen.findByRole("heading", { name: /hello/i });
+    expect(wordHeading).toBeInTheDocument();
+
+    expect(
+      screen.getByText('"Hello!" or an equivalent greeting.')
+    ).toBeInTheDocument();
+    expect(screen.getByText('To greet with "hello".')).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "A greeting (salutation) said when meeting someone or acknowledging someone’s arrival or presence."
+      )
+    ).toBeInTheDocument();
   });
 
   it("audiofile has a source", async () => {
-    await user.type(screen.getByPlaceholderText("Search for a word..."), "hello");
+    await user.type(
+      screen.getByPlaceholderText("Search for a word..."),
+      "hello"
+    );
     await user.click(screen.getByRole("button", { name: /Search word/i }));
-    
+
     let audio;
-    await waitFor(() => {
-      audio = screen.getByTestId("audio-file");
-      expect(audio).toBeInTheDocument();
-    });
-    expect(audio).toHaveAttribute("src", "https://api.dictionaryapi.dev/media/pronunciations/en/hello-au.mp3");
+
+    audio = await screen.findByTestId("audio-file");
+    expect(audio).toBeInTheDocument();
+
+    expect(audio).toHaveAttribute(
+      "src",
+      "https://api.dictionaryapi.dev/media/pronunciations/en/hello-au.mp3"
+    );
   });
 });

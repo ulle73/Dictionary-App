@@ -61,8 +61,8 @@ function WordResult({ wordData }: any) {
 
       {/* Ljudspelare*/}
       {audioSrc && (
-        <audio data-testid="audio" key={audioSrc} controls>
-          <source src={audioSrc} type="audio/mpeg" />
+        <audio  key={audioSrc} controls>
+          <source data-testid="audio-file" src={audioSrc} type="audio/mpeg" />
         </audio>
       )}
     </div>
