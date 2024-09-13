@@ -54,6 +54,7 @@ function App() {
 
             <Routes>
               <Route path="/" element={<WordResult wordData={wordData} />} />
+              
               <Route
                 path="/:word"
                 element={<WordResult wordData={wordData} />}
@@ -61,7 +62,7 @@ function App() {
             </Routes>
           </div>
 
-          <FavList />
+          <FavList onSearch={searchFunction} />
         </div>
       </div>
     </AppProvider>
