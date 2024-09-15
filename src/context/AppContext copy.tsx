@@ -1,5 +1,4 @@
-import React, { createContext, ReactNode, useEffect, useState } from "react";
-import axios from "axios";
+import { createContext, useEffect, useState } from "react";
 
 type ContextTypes = {
   favorites: string[];

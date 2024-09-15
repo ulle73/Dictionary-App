@@ -22,7 +22,7 @@ describe("App", () => {
   beforeEach(() => {
     localStorage.clear();
 
-    (axios.get as any).mockImplementation((url: string) => {
+    axios.get.mockImplementation((url) => {
       if (url.includes("hello")) {
         return { data: mockData.hello };
       } else if (url.includes("test")) {

@@ -4,9 +4,6 @@ import SearchBar from "../components/Searchbar";
 import AppContext from "../context/AppContext copy";
 import userEvent from "@testing-library/user-event";
 
-// Mocka alert globalt
-global.alert = vi.fn();
-
 const user = userEvent.setup();
 
 describe("SearchBar", () => {

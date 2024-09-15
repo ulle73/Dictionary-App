@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import Header from "../components/Header";
+import Header from "./Header";
 import AppContext from "../context/AppContext copy";
+import { describe, it, expect } from "vitest";
 
 describe("simple start-test", () => {
   it("See my header", () => {
