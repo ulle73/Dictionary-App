@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import AppContext from "../context/AppContext copy";
 
 function FavList({ onSearch }: { onSearch: (word: string) => void }) {
