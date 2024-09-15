@@ -55,12 +55,15 @@ function App() {
 
             {/* Visa globalt felmeddelande om det finns något */}
             {globalError && (
-              <p style={{ color: 'red', marginTop: '10px' }}>{globalError}</p>
+              <p style={{ color: "red", marginTop: "10px" }}>{globalError}</p>
             )}
 
             <Routes>
               <Route path="/" element={<WordResult wordData={wordData} />} />
-              <Route path="/:word" element={<WordResult wordData={wordData} />} />
+              <Route
+                path="/:word"
+                element={<WordResult wordData={wordData} />}
+              />
             </Routes>
           </div>
 

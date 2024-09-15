@@ -4,10 +4,10 @@ import { render, screen } from "@testing-library/react";
 import Header from "../components/Header";
 import AppContext from "../context/AppContext copy";
 import userEvent from "@testing-library/user-event";
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi } from "vitest";
 
-describe('ThemeSwitch', () => {
-  it('should toggle between dark and light ', async () => {
+describe("ThemeSwitch", () => {
+  it("should toggle between dark and light ", async () => {
     const mockToggleTheme = vi.fn(() => {
       const currentTheme = sessionStorage.getItem("theme") || "light";
       const newTheme = currentTheme === "light" ? "dark" : "light";
@@ -20,7 +20,7 @@ describe('ThemeSwitch', () => {
         value={{ theme: "light", toggleTheme: mockToggleTheme }}
       >
         <Header title="Dictionary App" />
-      </AppContext.Provider>
+      </AppContext.Provider>,
     );
 
     const toggleBtn = screen.getByText("Toggle Theme");
@@ -33,7 +33,6 @@ describe('ThemeSwitch', () => {
     expect(document.body.classList.contains("dark")).toBe(true);
     expect(document.body.classList.contains("light")).toBe(false);
 
- 
     await user.click(toggleBtn);
 
     // Kontrollera att body-klassen är "light"

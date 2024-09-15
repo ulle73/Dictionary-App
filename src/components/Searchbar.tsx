@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import AppContext from '../context/AppContext copy';
+import React, { useState, useContext } from "react";
+import AppContext from "../context/AppContext copy";
 
 interface SearchBarProps {
   onSearch: (input: string) => Promise<boolean>; // Ändrat för att använda en Promise som returnerar om ordet finns
@@ -35,18 +35,17 @@ function SearchBar({ onSearch }: SearchBarProps) {
   return (
     <div className="searchbar-container">
       <form onSubmit={searchFunction}>
-        <input 
-          placeholder="Search for a word..." 
-          type="text" 
-          onChange={handleInputChange} 
-          value={inputValue} 
+        <input
+          placeholder="Search for a word..."
+          type="text"
+          onChange={handleInputChange}
+          value={inputValue}
         />
         <button type="submit">Search word</button>
       </form>
 
-      {/* Visa felmeddelandet om det finns något */}
       {errorMessage && (
-        <p style={{ color: 'red', marginTop: '10px' }}>{errorMessage}</p>
+        <p style={{ color: "red", marginTop: "10px" }}>{errorMessage}</p>
       )}
     </div>
   );
