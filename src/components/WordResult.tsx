@@ -39,7 +39,7 @@ function WordResult({ wordData }: any) {
   return (
     <div className="wordResult-container">
       {/* Ordets huvudnamn */}
-      <h2>{wordData[0].word}</h2>
+      <h2 data-testid="word-heading">{wordData[0].word}</h2>
 
       {/* Knapp för att lägga till eller ta bort ordet från favoriter */}
       <button
