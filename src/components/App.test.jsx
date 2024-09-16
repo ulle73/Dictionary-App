@@ -104,7 +104,7 @@ describe("App", () => {
       screen.getByRole("button", { name: /Add word to Favorites/i }),
     );
     await user.clear(input);
-
+    //Söker efter ett nytt ord för att säkerställa att frontend infon är borta
     await user.type(input, "test");
     await user.click(screen.getByRole("button", { name: /Search word/i }));
 

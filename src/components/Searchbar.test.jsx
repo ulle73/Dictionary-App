@@ -50,7 +50,7 @@ describe("SearchBar", () => {
       </AppContext.Provider>,
     );
 
-    // Typa ett ord som inte finns och skicka in formuläret
+    // Skriva ett ord som inte finns och skicka in formuläret
     await user.type(
       screen.getByPlaceholderText("Search for a word..."),
       "ettOrdPåSvenska",
